@@ -60,8 +60,8 @@ def get_callbacks(args):
     stopping = tf.keras.callbacks.EarlyStopping(
         monitor='val_conv6_cls_categorical_accuracy', patience=10)
 
-    lr_decay = LearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
+    #lr_decay = LearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
 
     terminate = tf.keras.callbacks.TerminateOnNaN()
 
-    return [checkpoint, stopping, lr_decay, terminate]
+    return [checkpoint, stopping, terminate]

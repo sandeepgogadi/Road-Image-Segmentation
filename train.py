@@ -68,10 +68,11 @@ else:
 print('loaded loss weights')
 
 # Optimizer
-optimizer = tf.train.AdamOptimizer(args.lr)
-# optimizer = tf.keras.optimizers.SGD(lr=args.lr, momentum=0.9)
-# optimizer = tf.keras.optimizers.Adam(lr=args.lr)
-
+learning_rate = tf.train.polynomial_decay(args.lr,
+                                          global_step=tf.Variable(0, trainable=False),
+                                          decay_steps=10000,
+                                          end_learning_rate=args.lr*.1)
+optimizer = tf.train.AdamOptimizer(learning_rate)
 print('Optimizer selected')
 
 # Model
