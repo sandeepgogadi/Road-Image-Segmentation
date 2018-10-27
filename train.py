@@ -63,7 +63,7 @@ else:
 print('loaded loss weights')
 
 # Optimizer
-optimizer = tf.keras.optimizers.Adam(lr=args.lr)
+optimizer = tf.train.AdamOptimizer(lr=args.lr)
 print('Optimizer selected')
 
 # Model
