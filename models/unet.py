@@ -2,8 +2,9 @@
 
 from utils import download_file
 import tensorflow as tf
-from tensorflow.keras.models import Model, concatenate, Conv2DTranspose
+from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Activation, Conv2D
+from tensorflow.keras.layers import concatenate, Conv2DTranspose
 from tensorflow.keras.layers import BatchNormalization, MaxPooling2D
 from keras import backend as K
 
