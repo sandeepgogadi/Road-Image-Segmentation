@@ -13,9 +13,10 @@ def get_class_weights(args):
     print('Getting class weights')
 
     num_classes = args.num_classes
+    class_weights_file = "class_weights_{}_{}.p".format(args.width, args.height)
 
-    if os.path.isfile('class_weights.p'):
-        class_weights = pickle.load(open("class_weights.p", "rb"))
+    if os.path.isfile(class_weights_file):
+        class_weights = pickle.load(open(class_weights_file, "rb"))
     else:
         class_weights_arr = np.zeros(num_classes)
         labels_list = sorted(glob.glob('data/train/labels/*'))
@@ -23,6 +24,7 @@ def get_class_weights(args):
         for idx in range(len(labels_list)):
             img_weights = np.zeros(num_classes)
             img = cv2.imread(labels_list[idx], 0)
+            img = cv2.resize(img, (args.width, args.height))
             for i in range(num_classes):
                 if i == 19:
                     img_weights[i] = (img == 255).sum()
@@ -38,7 +40,7 @@ def get_class_weights(args):
         for i in range(num_classes):
             class_weights[i] = class_weights_arr[i]
 
-        pickle.dump(class_weights, open("class_weights.p", "wb"))
+        pickle.dump(class_weights, open(class_weights_file, "wb"))
 
     return class_weights
 

@@ -8,6 +8,7 @@ import tensorflow as tf
 from data_generator import *
 from history import *
 from utils import prepare_repo
+from callbacks import get_callbacks
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--batch_size', type=int, default=32,
@@ -47,7 +48,7 @@ sess = tf.Session(config=config)
 K.set_session(sess)
 
 # Callbacks
-callbacks = None
+callbacks = get_callbacks(args)
 print('Assigned callbacks!')
 
 # Data Generators
@@ -58,8 +59,6 @@ print('Alloted generators')
 # Class weights
 class_weights = get_class_weights(args)
 print('Loaded class weights!')
-
-# adjust them for image size
 
 # Loss weights
 if args.net == 'ICNET':
