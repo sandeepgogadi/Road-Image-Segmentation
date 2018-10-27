@@ -6,13 +6,16 @@ import matplotlib.pyplot as plt
 
 
 def plot_history(history, result_dir='history'):
-    plt.plot(history.history['acc'], marker='.')
-    plt.plot(history.history['val_acc'], marker='.')
+    plt.plot(history.history['conv6_cls_categorical_accuracy'],
+             marker='.')
+    plt.plot(history.history['val_conv6_cls_categorical_accuracy'],
+             marker='.')
     plt.title('model accuracy')
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
     plt.grid()
-    plt.legend(['acc', 'val_acc'], loc='lower right')
+    plt.legend(['conv6_cls_categorical_accuracy', 'val_conv6_cls_categorical_accuracy'],
+               loc='lower right')
     plt.savefig(os.path.join(result_dir, 'model_accuracy.png'))
     plt.close()
 
