@@ -79,7 +79,7 @@ if args.use_tpu:
     print('TPU setup completed')
 
 # Model compile
-model.compile(optim, 'categorical_crossentropy',
+model.compile(optimizer, 'categorical_crossentropy',
               loss_weights=loss_weights, metrics=['categorical_accuracy'])
 print('Model compiled')
 
