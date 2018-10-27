@@ -8,7 +8,10 @@ import gc
 from tensorflow.keras.utils import to_categorical, Sequence
 
 
-def get_class_weights(num_classes):
+def get_class_weights(args):
+
+    num_classes = args.num_classes
+
     if os.path.isfile('class_weights.p'):
         class_weights = pickle.load(open("class_weights.p", "rb"))
     else:
@@ -39,18 +42,18 @@ def get_class_weights(num_classes):
 
 
 class DataGenerator(Sequence):
-    def __init__(self, folder='data', mode='train', n_classes=20, net=None, batch_size=1, resize_shape=None,
-                 crop_shape=(640, 320), brightness=0.1, own_data=False):
+    def __init__(self, folder='data', mode='train', args, resize_shape=None,
+                 brightness=0.1):
 
         self.image_path_list = sorted(glob.glob(os.path.join(folder, mode, 'images/*')))
         self.label_path_list = sorted(glob.glob(os.path.join(folder, mode, 'labels/*')))
         self.mode = mode
-        self.n_classes = n_classes
-        self.batch_size = batch_size
+        self.n_classes = args.num_classes
+        self.batch_size = args.batch_size
         self.resize_shape = resize_shape
         self.brightness = brightness
-        self.net = net
-        self.own_data = own_data
+        self.net = args.net
+        self.custom_data = args.custom_data
 
         # Preallocate memory
         if self.net == 'ICNET':
@@ -75,7 +78,7 @@ class DataGenerator(Sequence):
 
             image = cv2.imread(image_path, 1)
             label = cv2.imread(label_path, 0)
-            if self.own_data:
+            if not self.custom_data:
                 label[label == 255] = 19
             if self.resize_shape:
                 image = cv2.resize(image, self.resize_shape)

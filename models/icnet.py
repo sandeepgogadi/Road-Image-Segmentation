@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import tensorflow as tf
 from tensorflow.keras.layers import Lambda, Conv2D, Add, AveragePooling2D, ZeroPadding2D
 from tensorflow.keras.layers import BatchNormalization, MaxPooling2D, Activation, Input

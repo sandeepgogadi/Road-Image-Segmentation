@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from utils import download_file
 import tensorflow as tf
 from tensorflow.keras.models import Model, concatenate, Conv2DTranspose

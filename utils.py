@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os
 import requests
 from tqdm import tqdm
@@ -33,7 +35,7 @@ def create_folders(folders_list):
 def prepare_repo():
 
     # Make folders
-    folders_list = ['weights']
+    folders_list = ['weights', 'history']
     create_folders(folders_list)
 
     # Download VGG weights

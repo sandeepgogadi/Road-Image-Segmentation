@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from .fcn8 import FCN8
 from .icnet import ICNET
 from .pspnet import PSPNET

@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import tensorflow as tf
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Activation, Flatten, Reshape
