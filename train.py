@@ -49,7 +49,7 @@ print('Assigned callbacks!')
 # Data Generators
 train_generator = DataGenerator(args)
 val_generator = DataGenerator(args, mode='val')
-print('Alloted generated')
+print('Alloted generators')
 
 # Class weights
 class_weights = get_class_weights(args)

@@ -17,15 +17,15 @@ def get_model(args):
     net = args.net
 
     if net == 'FCN8':
-        return FCN8(width, height, num_classes, weights_path=None, train=False)
+        return FCN8(width, height, num_classes, weights_path=None, train=train)
     elif net == 'ICNET':
-        return ICNET(width, height, num_classes, weights_path=None, train=False)
+        return ICNET(width, height, num_classes, weights_path=None, train=train)
     elif net == 'PSPNET':
-        return PSPNET(width, height, num_classes, weights_path=None, train=False)
+        return PSPNET(width, height, num_classes, weights_path=None, train=train)
     elif net == 'SEGNET':
-        return SEGNET(width, height, num_classes, weights_path=None, train=False)
+        return SEGNET(width, height, num_classes, weights_path=None, train=train)
     elif net == 'UNET':
-        return UNET(width, height, num_classes, weights_path=None, train=False)
+        return UNET(width, height, num_classes, weights_path=None, train=train)
 
     # elif net == '':
     #     return (width, height, num_classes, weights_path=None, train=False)
