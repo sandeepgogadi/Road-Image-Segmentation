@@ -1,6 +1,17 @@
 #!/usr/bin/python3
 
 import tensorflow as tf
+import numpy as np
+
+
+class PolyDecay:
+    def __init__(self, initial_lr, power, n_epochs):
+        self.initial_lr = initial_lr
+        self.power = power
+        self.n_epochs = n_epochs
+
+    def scheduler(self, epoch):
+        return self.initial_lr * np.power(1.0 - 1.0*epoch/self.n_epochs, self.power)
 
 
 def get_callbacks(args):
