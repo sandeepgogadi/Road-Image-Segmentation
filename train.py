@@ -55,6 +55,8 @@ print('Alloted generators')
 class_weights = get_class_weights(args)
 print('Loaded class weights!')
 
+# adjust them for image size
+
 # Loss weights
 if args.net == 'ICNET':
     loss_weights = [1.0, 0.4, 0.16]

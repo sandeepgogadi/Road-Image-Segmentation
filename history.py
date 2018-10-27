@@ -29,9 +29,9 @@ def plot_history(history, result_dir='history'):
 
 def save_history(history, result_dir='history'):
     loss = history.history['loss']
-    acc = history.history['acc']
+    acc = history.history['conv6_cls_categorical_accuracy']
     val_loss = history.history['val_loss']
-    val_acc = history.history['val_acc']
+    val_acc = history.history['val_conv6_cls_categorical_accuracy']
     nb_epoch = len(acc)
 
     with open(os.path.join(result_dir, 'result.txt'), 'w') as fp:
