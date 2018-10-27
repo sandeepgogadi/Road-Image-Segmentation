@@ -44,25 +44,31 @@ K.set_session(sess)
 
 # Callbacks
 callbacks = None
+print('Assigned callbacks!')
 
 # Data Generators
 train_generator = DataGenerator(args)
 val_generator = DataGenerator(args, mode='val')
+print('Alloted generated')
 
 # Class weights
 class_weights = get_class_weights(args)
+print('Loaded class weights!')
 
 # Loss weights
 if args.net == 'ICNET':
     loss_weights = [1.0, 0.4, 0.16]
 else:
     loss_weights = None
+print('loaded loss weights')
 
 # Optimizer
-optimizer = tf.keras.optimizers.Adam(lr=lr)
+optimizer = tf.keras.optimizers.Adam(lr=args.lr)
+print('Optimizer selected')
 
 # Model
 model = models.get_model(args)
+print('loaded model')
 
 # TPU
 if args.use_tpu:
@@ -70,18 +76,22 @@ if args.use_tpu:
     strategy = tf.contrib.tpu.TPUDistributionStrategy(
         tf.contrib.cluster_resolver.TPUClusterResolver(TPU_WORKER))
     model = tf.contrib.tpu.keras_to_tpu_model(model, strategy)
+    print('TPU setup completed')
 
 # Model compile
 model.compile(optim, 'categorical_crossentropy',
               loss_weights=loss_weights, metrics=['categorical_accuracy'])
+print('Model compiled')
 
 # Training
+print('Training begin')
 history = model.fit_generator(train_generator, len(train_generator),
                               args.epochs, callbacks=callbacks,
                               validation_data=val_generator,
                               class_weight=class_weights,
                               validation_steps=len(val_generator),
                               workers=2, shuffle=True)
+print('Training end')
 
 # Plot as save history
 plot_history(history)

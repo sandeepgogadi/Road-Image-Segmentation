@@ -10,6 +10,8 @@ from tensorflow.keras.utils import to_categorical, Sequence
 
 def get_class_weights(args):
 
+    print('Getting class weights')
+
     num_classes = args.num_classes
 
     if os.path.isfile('class_weights.p'):
