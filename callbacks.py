@@ -6,7 +6,7 @@ import numpy as np
 # To change lr to learning_rate for tf.train compatibility
 
 
-class LearningRateScheduler(tf.keras.Callback):
+class LearningRateScheduler(tf.keras.callbacks.Callback):
     """Learning rate scheduler.
     # Arguments
         schedule: a function that takes an epoch index as input
