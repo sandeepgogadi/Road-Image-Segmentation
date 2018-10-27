@@ -7,6 +7,7 @@ from keras import backend as K
 import tensorflow as tf
 from data_generator import *
 from history import *
+from utils import prepare_repo
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--batch_size', type=int, default=32,
@@ -35,6 +36,9 @@ parser.add_argument('--lr', type=float, default=.0001,
 
 args = parser.parse_args()
 print(args)
+
+# Prepare Repo
+prepare_repo()
 
 # Workaround to forbid tensorflow from crashing the gpu
 config = tf.ConfigProto()
