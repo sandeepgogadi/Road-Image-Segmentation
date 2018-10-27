@@ -1,3 +1,5 @@
 weights/
 data/
 data.zip
+__pycache__/
+models/__pycache__/
