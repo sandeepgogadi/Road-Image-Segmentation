@@ -46,10 +46,8 @@ K.set_session(sess)
 callbacks = None
 
 # Data Generators
-train_generator = DataGenerator(batch_size=args.batch_size,
-                                resize_shape=(args.width, args.height))
-val_generator = DataGenerator(mode='val', batch_size=args.batch_size,
-                              resize_shape=(args.width, args.height))
+train_generator = DataGenerator(resize_shape=(args.width, args.height))
+val_generator = DataGenerator(mode='val', resize_shape=(args.width, args.height))
 
 # Class weights
 class_weights = get_class_weights(args)
