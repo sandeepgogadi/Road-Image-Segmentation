@@ -50,7 +50,7 @@ class DataGenerator(Sequence):
         self.mode = mode
         self.n_classes = args.num_classes
         self.batch_size = args.batch_size
-        self.resize_shape = resize_shape
+        self.resize_shape = (args.width, args.height)
         self.brightness = brightness
         self.net = args.net
         self.custom_data = args.custom_data

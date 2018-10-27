@@ -46,42 +46,42 @@ K.set_session(sess)
 callbacks = None
 
 # Data Generators
-train_generator = DataGenerator(resize_shape=(args.width, args.height))
-val_generator = DataGenerator(mode='val', resize_shape=(args.width, args.height))
+train_generator = DataGenerator(args)
+val_generator = DataGenerator(args, mode='val'))
 
 # Class weights
-class_weights = get_class_weights(args)
+class_weights=get_class_weights(args)
 
 # Loss weights
 if args.net == 'ICNET':
-    loss_weights = [1.0, 0.4, 0.16]
+    loss_weights=[1.0, 0.4, 0.16]
 else:
-    loss_weights = None
+    loss_weights=None
 
 # Optimizer
-optimizer = tf.keras.optimizers.Adam(lr=lr)
+optimizer=tf.keras.optimizers.Adam(lr = lr)
 
 # Model
-model = models.get_model(args)
+model=models.get_model(args)
 
 # TPU
 if args.use_tpu:
-    TPU_WORKER = 'grpc://' + os.environ['COLAB_TPU_ADDR']
-    strategy = tf.contrib.tpu.TPUDistributionStrategy(
+    TPU_WORKER='grpc://' + os.environ['COLAB_TPU_ADDR']
+    strategy=tf.contrib.tpu.TPUDistributionStrategy(
         tf.contrib.cluster_resolver.TPUClusterResolver(TPU_WORKER))
-    model = tf.contrib.tpu.keras_to_tpu_model(model, strategy)
+    model=tf.contrib.tpu.keras_to_tpu_model(model, strategy)
 
 # Model compile
 model.compile(optim, 'categorical_crossentropy',
-              loss_weights=loss_weights, metrics=['categorical_accuracy'])
+              loss_weights = loss_weights, metrics = ['categorical_accuracy'])
 
 # Training
-history = model.fit_generator(train_generator, len(train_generator),
-                              args.epochs, callbacks=callbacks,
-                              validation_data=val_generator,
-                              class_weight=class_weights,
-                              validation_steps=len(val_generator),
-                              workers=2, shuffle=True)
+history=model.fit_generator(train_generator, len(train_generator),
+                              args.epochs, callbacks = callbacks,
+                              validation_data = val_generator,
+                              class_weight = class_weights,
+                              validation_steps = len(val_generator),
+                              workers = 2, shuffle = True)
 
 # Plot as save history
 plot_history(history)
