@@ -57,17 +57,19 @@ class DataGenerator(Sequence):
 
         # Preallocate memory
         if self.net == 'ICNET':
-            self.X = np.zeros((batch_size, resize_shape[1], resize_shape[0], 3), dtype='float32')
+            self.X = np.zeros(
+                (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
             self.Y1 = np.zeros(
-                (batch_size, resize_shape[1]//4, resize_shape[0]//4, self.n_classes), dtype='float32')
+                (self.batch_size, self.resize_shape[1]//4, self.resize_shape[0]//4, self.n_classes), dtype='float32')
             self.Y2 = np.zeros(
-                (batch_size, resize_shape[1]//8, resize_shape[0]//8, self.n_classes), dtype='float32')
+                (self.batch_size, self.resize_shape[1]//8, self.resize_shape[0]//8, self.n_classes), dtype='float32')
             self.Y3 = np.zeros(
-                (batch_size, resize_shape[1]//16, resize_shape[0]//16, self.n_classes), dtype='float32')
+                (self.batch_size, self.resize_shape[1]//16, self.resize_shape[0]//16, self.n_classes), dtype='float32')
         else:
-            self.X = np.zeros((batch_size, resize_shape[1], resize_shape[0], 3), dtype='float32')
+            self.X = np.zeros(
+                (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
             self.Y = np.zeros(
-                (batch_size, resize_shape[1], resize_shape[0], self.n_classes), dtype='float32')
+                (self.batch_size, self.resize_shape[1], self.resize_shape[0], self.n_classes), dtype='float32')
 
     def __len__(self):
         return len(self.image_path_list) // self.batch_size
