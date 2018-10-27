@@ -42,7 +42,7 @@ def get_class_weights(args):
 
 
 class DataGenerator(Sequence):
-    def __init__(self, folder='data', mode='train', args, resize_shape=None,
+    def __init__(self, args, folder='data', mode='train', resize_shape=None,
                  brightness=0.1):
 
         self.image_path_list = sorted(glob.glob(os.path.join(folder, mode, 'images/*')))
