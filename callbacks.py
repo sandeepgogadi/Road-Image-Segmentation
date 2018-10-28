@@ -31,4 +31,4 @@ def get_callbacks(args):
 
     terminate = tf.keras.callbacks.TerminateOnNaN()
 
-    return [checkpoint, stopping, reduce_lr, terminate]
+    return [checkpoint, stopping, terminate]
