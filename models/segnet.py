@@ -16,46 +16,46 @@ def SEGNET(width, height, n_classes, weights_path=None, train=False):
     img_input = Input(shape=(height, width, 3))
     x = img_input
     # Encoder
-    x = Convolution2D(64, 3, 3, border_mode="same")(x)
+    x = Convolution2D(64, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
     x = MaxPooling2D(pool_size=(2, 2))(x)
 
-    x = Convolution2D(128, 3, 3, border_mode="same")(x)
+    x = Convolution2D(128, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
     x = MaxPooling2D(pool_size=(2, 2))(x)
 
-    x = Convolution2D(256, 3, 3, border_mode="same")(x)
+    x = Convolution2D(256, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
     x = MaxPooling2D(pool_size=(2, 2))(x)
 
-    x = Convolution2D(512, 3, 3, border_mode="same")(x)
+    x = Convolution2D(512, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     # Decoder
-    x = Convolution2D(512, 3, 3, border_mode="same")(x)
+    x = Convolution2D(512, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     x = UpSampling2D(size=(2, 2))(x)
-    x = Convolution2D(256, 3, 3, border_mode="same")(x)
+    x = Convolution2D(256, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     x = UpSampling2D(size=(2, 2))(x)
-    x = Convolution2D(128, 3, 3, border_mode="same")(x)
+    x = Convolution2D(128, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
     x = UpSampling2D(size=(2, 2))(x)
-    x = Convolution2D(64, 3, 3, border_mode="same")(x)
+    x = Convolution2D(64, 3, 3, padding="same")(x)
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
-    x = Convolution2D(classes, 1, 1, border_mode="valid")(x)
+    x = Convolution2D(classes, 1, 1, padding="valid")(x)
     x = Reshape((height*width, num_classes))(x)
     x = Activation("softmax")(x)
 

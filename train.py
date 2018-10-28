@@ -60,8 +60,9 @@ val_generator = DataGenerator(args, mode='val')
 print('Alloted generators')
 
 # Class weights
-class_weights = get_class_weights(args)
-print('Loaded class weights!')
+if args.net == 'ICNET':
+    class_weights = get_class_weights(args)
+    print('Loaded class weights!')
 
 # Loss weights
 if args.net == 'ICNET':
