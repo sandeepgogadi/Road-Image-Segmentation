@@ -65,7 +65,7 @@ def FCN8(width, height, num_classes, weights_path=None, train=False):
     # Load pretrained weights.
     if train:
         vgg16 = Model(img_input, x)
-        vgg16.load_weights(vgg_weight_path, by_name=True)
+        vgg16.load_weights('weights/vgg16.h5', by_name=True)
     # Convolutinalized fully connected layer.
     x = Conv2D(4096, (7, 7), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)

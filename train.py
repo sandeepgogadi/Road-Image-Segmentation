@@ -73,6 +73,8 @@ print('loaded loss weights')
 # Optimizer
 optimizer = tf.train.AdamOptimizer(args.lr)
 print('Optimizer selected')
+# Use tf.keras.optimizers.Adam when keras for tpu comes out of
+# experimental.
 
 # Model
 model = models.get_model(args)
@@ -105,5 +107,5 @@ history = model.fit_generator(train_generator, len(train_generator),
 print('Training end')
 
 # Plot as save history
-plot_history(history)
-save_history(history)
+plot_history(args, history)
+save_history(args, history)

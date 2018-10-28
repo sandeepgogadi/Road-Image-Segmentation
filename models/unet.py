@@ -66,7 +66,7 @@ def UNET(width, height, num_classes, weights_path=None, train=False):
     # Load pretrained weights.
     if train:
         vgg16 = Model(img_input, x)
-        vgg16.load_weights(vgg_weight_path, by_name=True)
+        vgg16.load_weights('weights/vgg16.h5', by_name=True)
     # UP 1
     x = Conv2DTranspose(512, (2, 2), strides=(2, 2), padding='same')(x)
     x = BatchNormalization()(x)
