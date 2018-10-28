@@ -62,7 +62,9 @@ print('Alloted generators')
 # Class weights
 if args.net == 'ICNET':
     class_weights = get_class_weights(args)
-    print('Loaded class weights!')
+else:
+    class_weights = None
+print('Loaded class weights!')
 
 # Loss weights
 if args.net == 'ICNET':
