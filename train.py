@@ -38,6 +38,9 @@ parser.add_argument('--lr', type=float, default=.0001,
 args = parser.parse_args()
 print(args)
 
+# Clear Session
+tf.keras.backend.clear_session()
+
 # Prepare Repo
 prepare_repo()
 
@@ -68,11 +71,7 @@ else:
 print('loaded loss weights')
 
 # Optimizer
-learning_rate = tf.train.polynomial_decay(args.lr,
-                                          global_step=tf.Variable(0, trainable=False),
-                                          decay_steps=10000,
-                                          end_learning_rate=args.lr*.1)
-optimizer = tf.train.AdamOptimizer(learning_rate)
+optimizer = tf.train.AdamOptimizer(args.lr)
 print('Optimizer selected')
 
 # Model
@@ -82,10 +81,13 @@ print('loaded model')
 # TPU
 if args.use_tpu:
     TPU_WORKER = 'grpc://' + os.environ['COLAB_TPU_ADDR']
-    strategy = tf.contrib.tpu.TPUDistributionStrategy(
-        tf.contrib.cluster_resolver.TPUClusterResolver(TPU_WORKER))
+    resolver = tf.contrib.cluster_resolver.TPUClusterResolver(TPU_WORKER)
+    strategy = tf.contrib.tpu.TPUDistributionStrategy(resolver)
     model = tf.contrib.tpu.keras_to_tpu_model(model, strategy)
+    session_master = resolver.master()
     print('TPU setup completed')
+else:
+    session_master = ''
 
 # Model compile
 model.compile(optimizer, 'categorical_crossentropy',
