@@ -6,7 +6,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Activation, Conv2D
 from tensorflow.keras.layers import concatenate, Conv2DTranspose
 from tensorflow.keras.layers import BatchNormalization, MaxPooling2D
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 
 def UNET(width, height, num_classes, weights_path=None, train=False):

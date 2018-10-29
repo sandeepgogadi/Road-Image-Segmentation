@@ -6,14 +6,16 @@ import numpy as np
 # Use lr decay, reduce when tensorflow supports keras optimizers.
 
 #
-# class PolyDecay:
-#     def __init__(self, initial_lr, power, n_epochs):
-#         self.initial_lr = initial_lr
-#         self.power = power
-#         self.n_epochs = n_epochs
-#
-#     def scheduler(self, epoch):
-#         return self.initial_lr * np.power(1.0 - 1.0*epoch/self.n_epochs, self.power)
+
+
+class PolyDecay:
+    def __init__(self, initial_lr, power, n_epochs):
+        self.initial_lr = initial_lr
+        self.power = power
+        self.n_epochs = n_epochs
+
+    def scheduler(self, epoch):
+        return self.initial_lr * np.power(1.0 - 1.0*epoch/self.n_epochs, self.power)
 
 
 def get_callbacks(args):
@@ -25,10 +27,10 @@ def get_callbacks(args):
     stopping = tf.keras.callbacks.EarlyStopping(
         monitor='val_conv6_cls_categorical_accuracy', patience=10)
 
-    #lr_decay = tf.keras.callbacksLearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
+    lr_decay = tf.keras.callbacksLearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
 
     #reduce_lr = tf.keras.callbacks.ReduceLROnPlateau()
 
     terminate = tf.keras.callbacks.TerminateOnNaN()
 
-    return [checkpoint, stopping, terminate]
+    return [checkpoint, stopping, lr_decay, terminate]

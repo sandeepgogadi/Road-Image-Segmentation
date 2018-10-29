@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D
 from tensorflow.keras.layers import BatchNormalization, MaxPooling2D
 from tensorflow.keras.layers import Conv2DTranspose, AveragePooling2D
 from tensorflow.keras.layers import add, concatenate, Dropout
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 
 def conv_block(input_tensor, filters, strides, d_rates):

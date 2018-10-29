@@ -5,7 +5,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Lambda, Activation, Conv2D
 from tensorflow.keras.layers import BatchNormalization, Add, MaxPooling2D
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 
 def FCN8(width, height, num_classes, weights_path=None, train=False):
