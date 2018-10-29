@@ -74,7 +74,8 @@ else:
 print('loaded loss weights')
 
 # Optimizer
-optimizer = tf.train.AdamOptimizer(args.lr)
+# optimizer = tf.train.AdamOptimizer(args.lr)
+optimizer = tf.keras.optimizers.Adam(args.lr)
 print('Optimizer selected')
 # Use tf.keras.optimizers.Adam when keras for tpu comes out of
 # experimental.
