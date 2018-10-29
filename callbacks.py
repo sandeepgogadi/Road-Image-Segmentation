@@ -3,10 +3,6 @@
 import tensorflow as tf
 import numpy as np
 
-# Use lr decay, reduce when tensorflow supports keras optimizers.
-
-#
-
 
 class PolyDecay:
     def __init__(self, initial_lr, power, n_epochs):
