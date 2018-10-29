@@ -7,25 +7,18 @@ from .segnet import SEGNET
 from .unet import UNET
 
 
-def get_model(args):
-
-    width = args.width
-    height = args.height
-    num_classes = args.num_classes
-    weights_path = args.weights_path
-    train = args.train
-    net = args.net
+def get_model(net, width, height, num_classes, weights_path=None, train=False):
 
     if net == 'FCN8':
-        return FCN8(width, height, num_classes, weights_path=None, train=train)
+        return FCN8(width, height, num_classes, weights_path, train)
     elif net == 'ICNET':
-        return ICNET(width, height, num_classes, weights_path=None, train=train)
+        return ICNET(width, height, num_classes, weights_path, train)
     elif net == 'PSPNET':
-        return PSPNET(width, height, num_classes, weights_path=None, train=train)
+        return PSPNET(width, height, num_classes, weights_path, train)
     elif net == 'SEGNET':
-        return SEGNET(width, height, num_classes, weights_path=None, train=train)
+        return SEGNET(width, height, num_classes, weights_path, train)
     elif net == 'UNET':
-        return UNET(width, height, num_classes, weights_path=None, train=train)
+        return UNET(width, height, num_classes, weights_path, train)
 
     # elif net == '':
     #     return (width, height, num_classes, weights_path=None, train=False)

@@ -80,7 +80,8 @@ print('Optimizer selected')
 # experimental.
 
 # Model
-model = models.get_model(args)
+model = models.get_model(args.net, args.width, args.height,
+                         args.num_classes, args.weights_path, args.train)
 print('loaded model')
 
 # TPU

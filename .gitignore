@@ -1,5 +1,6 @@
-weights/
 data/
+weights/vgg16.h5
 data.zip
 __pycache__/
 models/__pycache__/
+.ipynb_checkpoints/

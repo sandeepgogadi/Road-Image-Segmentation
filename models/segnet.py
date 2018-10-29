@@ -9,7 +9,7 @@ from tensorflow.keras.models import Model
 import tensorflow.keras.backend as K
 
 
-def SEGNET(width, height, n_classes, weights_path=None, train=False):
+def SEGNET(width, height, num_classes, weights_path=None, train=False):
 
     print('SEGNET')
 
@@ -55,7 +55,7 @@ def SEGNET(width, height, n_classes, weights_path=None, train=False):
     x = BatchNormalization()(x)
     x = Activation("relu")(x)
 
-    x = Convolution2D(classes, 1, 1, padding="valid")(x)
+    x = Convolution2D(num_classes, 1, 1, padding="valid")(x)
     x = Reshape((height*width, num_classes))(x)
     x = Activation("softmax")(x)
 
