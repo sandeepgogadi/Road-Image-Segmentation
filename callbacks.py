@@ -27,7 +27,7 @@ def get_callbacks(args):
     stopping = tf.keras.callbacks.EarlyStopping(
         monitor='val_conv6_cls_categorical_accuracy', patience=10)
 
-    lr_decay = tf.keras.callbacksLearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
+    lr_decay = tf.keras.callbacks.LearningRateScheduler(PolyDecay(args.lr, 0.9, 10).scheduler)
 
     #reduce_lr = tf.keras.callbacks.ReduceLROnPlateau()
 
