@@ -31,7 +31,7 @@ parser.add_argument('--use_tpu', type=bool, default=False,
                     help='bool for TPU use.')
 parser.add_argument('--custom_data', type=bool, default=False,
                     help='Specify if you want to train with custom data')
-parser.add_argument('--lr', type=float, default=.0001,
+parser.add_argument('--lr', type=float, default=.01,
                     help='learning rate for optimizer')
 # parser.add_argument('', type=int, default=, help='')
 
