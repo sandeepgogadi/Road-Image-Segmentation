@@ -26,7 +26,7 @@ parser.add_argument('--weights_path', type=str, default=None,
 parser.add_argument('--train', type=bool, default=True,
                     help='train flag')
 parser.add_argument('--net', type=str,
-                    help='Choice of FCN8, ICNET, PSPNET, SEGNET, UNET')
+                    help='Choice of ICNET as of now, more networks to be added sooner.')
 parser.add_argument('--use_tpu', type=bool, default=False,
                     help='bool for TPU use.')
 parser.add_argument('--custom_data', type=bool, default=False,
