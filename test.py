@@ -42,11 +42,11 @@ print('Alloted generators')
 if args.net == 'ICNET':
     width = 640
     height = 320
-    num_classes = 20
+    args.num_classes = 20
     weights_path = 'weights/weights_{}.h5'.format(args.net)
 
 # Model
-model = models.get_model(args.net, width, height, num_classes, weights_path)
+model = models.get_model(args.net, width, height, args.num_classes, weights_path)
 print('loaded model')
 
 # TPU
