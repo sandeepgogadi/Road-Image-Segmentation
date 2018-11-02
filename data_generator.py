@@ -60,15 +60,21 @@ class DataGenerator(Sequence):
         self.custom_data = args.custom_data
 
         # Preallocate memory
-        if self.net == 'ICNET' and self.mode != 'test':
-            self.X = np.zeros(
-                (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
-            self.Y1 = np.zeros(
-                (self.batch_size, self.resize_shape[1]//4, self.resize_shape[0]//4, self.n_classes), dtype='float32')
-            self.Y2 = np.zeros(
-                (self.batch_size, self.resize_shape[1]//8, self.resize_shape[0]//8, self.n_classes), dtype='float32')
-            self.Y3 = np.zeros(
-                (self.batch_size, self.resize_shape[1]//16, self.resize_shape[0]//16, self.n_classes), dtype='float32')
+        if self.net == 'ICNET':
+            if self.mode != 'test':
+                self.X = np.zeros(
+                    (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
+                self.Y1 = np.zeros(
+                    (self.batch_size, self.resize_shape[1]//4, self.resize_shape[0]//4, self.n_classes), dtype='float32')
+                self.Y2 = np.zeros(
+                    (self.batch_size, self.resize_shape[1]//8, self.resize_shape[0]//8, self.n_classes), dtype='float32')
+                self.Y3 = np.zeros(
+                    (self.batch_size, self.resize_shape[1]//16, self.resize_shape[0]//16, self.n_classes), dtype='float32')
+            else:
+                self.X = np.zeros(
+                    (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
+                self.Y1 = np.zeros(
+                    (self.batch_size, self.resize_shape[1]//4, self.resize_shape[0]//4, self.n_classes), dtype='float32')
         else:
             self.X = np.zeros(
                 (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
@@ -100,21 +106,29 @@ class DataGenerator(Sequence):
                                       255 for i in np.arange(0, 256)]).astype(np.uint8)
                     image = cv2.LUT(image, table)
 
-            if self.net == 'ICNET' and self.mode != 'test':
-                self.X[n] = image
-                self.Y1[n] = to_categorical(cv2.resize(label, (label.shape[1]//4, label.shape[0]//4)),
-                                            self.n_classes).reshape((label.shape[0]//4, label.shape[1]//4, -1))
-                self.Y2[n] = to_categorical(cv2.resize(label, (label.shape[1]//8, label.shape[0]//8)),
-                                            self.n_classes).reshape((label.shape[0]//8, label.shape[1]//8, -1))
-                self.Y3[n] = to_categorical(cv2.resize(label, (label.shape[1]//16, label.shape[0]//16)),
-                                            self.n_classes).reshape((label.shape[0]//16, label.shape[1]//16, -1))
+            if self.net == 'ICNET':
+                if self.mode != 'test'
+                    self.X[n] = image
+                    self.Y1[n] = to_categorical(cv2.resize(label, (label.shape[1]//4, label.shape[0]//4)),
+                                                self.n_classes).reshape((label.shape[0]//4, label.shape[1]//4, -1))
+                    self.Y2[n] = to_categorical(cv2.resize(label, (label.shape[1]//8, label.shape[0]//8)),
+                                                self.n_classes).reshape((label.shape[0]//8, label.shape[1]//8, -1))
+                    self.Y3[n] = to_categorical(cv2.resize(label, (label.shape[1]//16, label.shape[0]//16)),
+                                                self.n_classes).reshape((label.shape[0]//16, label.shape[1]//16, -1))
+                else:
+                    self.X[n] = image
+                    self.Y1[n] = to_categorical(cv2.resize(label, (label.shape[1]//4, label.shape[0]//4)),
+                                                self.n_classes).reshape((label.shape[0]//4, label.shape[1]//4, -1))
             else:
                 self.X[n] = image
                 self.Y[n] = to_categorical(cv2.resize(label, (label.shape[1], label.shape[0])),
                                            self.n_classes).reshape((label.shape[0], label.shape[1], -1))
 
-        if self.net == 'ICNET' and self.mode != 'test':
-            return self.X, [self.Y1, self.Y2, self.Y3]
+        if self.net == 'ICNET':
+            if self.mode != 'test':
+                return self.X, [self.Y1, self.Y2, self.Y3]
+            else:
+                return self.X, self.Y1
         else:
             return self.X, self.Y
 
