@@ -25,6 +25,13 @@ parser.add_argument('--custom_data', type=bool, default=False,
 args = parser.parse_args()
 print(args)
 
+# Model params
+if args.net == 'ICNET':
+    width = 640
+    height = 320
+    num_classes = 20
+    weights_path = 'weights/weights_{}.h5'.format(args.net)
+
 # Clear Session
 tf.keras.backend.clear_session()
 
@@ -36,13 +43,6 @@ config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 K.set_session(sess)
-
-# Model params
-if args.net == 'ICNET':
-    width = 640
-    height = 320
-    num_classes = 20
-    weights_path = 'weights/weights_{}.h5'.format(args.net)
 
 # Data Generators
 test_generator = DataGenerator(num_classes, width, height, args, mode='test')
