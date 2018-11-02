@@ -47,7 +47,7 @@ test_generator = DataGenerator(num_classes, width, height, args, mode='test')
 print('Alloted generators')
 
 # Model
-model = models.get_model(args.net, width, height, args.num_classes, weights_path)
+model = models.get_model(args.net, width, height, num_classes, weights_path)
 print('loaded model')
 
 # TPU
