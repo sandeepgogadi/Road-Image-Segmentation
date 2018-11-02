@@ -55,8 +55,8 @@ callbacks = get_callbacks(args)
 print('Assigned callbacks!')
 
 # Data Generators
-train_generator = DataGenerator(args)
-val_generator = DataGenerator(args, mode='val')
+train_generator = DataGenerator(args.num_classes, args.width, args.height, args)
+val_generator = DataGenerator(args.num_classes, args.width, args.height, args, mode='val')
 print('Alloted generators')
 
 # Class weights

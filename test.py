@@ -34,16 +34,16 @@ config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 K.set_session(sess)
 
-# Data Generators
-test_generator = DataGenerator(args, mode='test')
-print('Alloted generators')
-
 # Model params
 if args.net == 'ICNET':
     width = 640
     height = 320
-    args.num_classes = 20
+    num_classes = 20
     weights_path = 'weights/weights_{}.h5'.format(args.net)
+
+# Data Generators
+test_generator = DataGenerator(num_classes, width, height, args, mode='test')
+print('Alloted generators')
 
 # Model
 model = models.get_model(args.net, width, height, args.num_classes, weights_path)

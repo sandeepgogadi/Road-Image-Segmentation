@@ -46,18 +46,19 @@ def get_class_weights(args):
 
 
 class DataGenerator(Sequence):
-    def __init__(self, args, folder='data', mode='train',
+    def __init__(self, num_classes, width, height, args, folder='data', mode='train',
                  resize_shape=None, brightness=0.1):
 
         self.image_path_list = sorted(glob.glob(os.path.join(folder, mode, 'images/*')))
         self.label_path_list = sorted(glob.glob(os.path.join(folder, mode, 'labels/*')))
         self.mode = mode
-        self.n_classes = args.num_classes
-        self.batch_size = args.batch_size
-        self.resize_shape = (args.width, args.height)
+        self.n_classes = num_classes
+        self.resize_shape = (width, height)
         self.brightness = brightness
         self.net = args.net
-        self.custom_data = args.custom_data
+        if mode != 'test':
+            self.batch_size = args.batch_size
+            self.custom_data = args.custom_data
 
         # Preallocate memory
         if self.net == 'ICNET':
