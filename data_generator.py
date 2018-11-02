@@ -56,8 +56,9 @@ class DataGenerator(Sequence):
         self.resize_shape = (width, height)
         self.brightness = brightness
         self.net = args.net
+        self.batch_size = args.batch_size
+
         if mode != 'test':
-            self.batch_size = args.batch_size
             self.custom_data = args.custom_data
 
         # Preallocate memory
