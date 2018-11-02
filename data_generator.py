@@ -107,7 +107,7 @@ class DataGenerator(Sequence):
                     image = cv2.LUT(image, table)
 
             if self.net == 'ICNET':
-                if self.mode != 'test'
+                if self.mode != 'test':
                     self.X[n] = image
                     self.Y1[n] = to_categorical(cv2.resize(label, (label.shape[1]//4, label.shape[0]//4)),
                                                 self.n_classes).reshape((label.shape[0]//4, label.shape[1]//4, -1))
