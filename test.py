@@ -15,8 +15,8 @@ import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--net', type=str, help='From a selection of ICNET.')
-parser.add_argument('--file', type=str, help='File path for the image.')
-
+parser.add_argument('--use_tpu', type=bool, default=False,
+                    help='bool for TPU use.')
 # parser.add_argument('', type=int, default=, help='')
 
 args = parser.parse_args()
@@ -34,6 +34,10 @@ config.gpu_options.allow_growth = True
 sess = tf.Session(config=config)
 K.set_session(sess)
 
+# Data Generators
+test_generator = DataGenerator(args, mode='test')
+print('Alloted generators')
+
 # Model params
 if args.net == 'ICNET':
     width = 640
@@ -45,53 +49,29 @@ if args.net == 'ICNET':
 model = models.get_model(args.net, width, height, num_classes, weights_path)
 print('loaded model')
 
-# Load and resize image
-img = cv2.imread(args.file, 1)
-img = cv2.resize(img, (width, height))
-img_reshape = img.reshape(-1, *img.shape)
+# TPU
+if args.use_tpu:
+    TPU_WORKER = 'grpc://' + os.environ['COLAB_TPU_ADDR']
+    resolver = tf.contrib.cluster_resolver.TPUClusterResolver(TPU_WORKER)
+    strategy = tf.contrib.tpu.TPUDistributionStrategy(resolver)
+    model = tf.contrib.tpu.keras_to_tpu_model(model, strategy)
+    session_master = resolver.master()
+    print('TPU setup completed')
+else:
+    session_master = ''
 
-# Predict
-start_time = time.time()
-pred = model.predict(img_reshape, batch_size=1)
-duration = time.time() - start_time
-print('Generated segmentations in %s seconds -- %s FPS' % (duration, 1.0/duration))
+# Optimizer
+optimizer = tf.keras.optimizers.Adam(args.lr)
+print('Optimizer selected')
 
-# Classes in image
-pred_img = np.argmax(pred[0], axis=-1)
-print(pred_img.shape)
-unique = np.unique(pred_img)
-print(unique)
+# Model compile
+model.compile(optimizer, 'categorical_crossentropy',
+              loss_weights=loss_weights, metrics=['categorical_accuracy'])
+print('Model compiled')
 
-# Prepare color image
-col_img = np.zeros((*pred_img.shape, 3), dtype=np.uint8)
+# Testing
+print('Testing begin')
+evaluate = model.evaluate_generator(test_generator, steps=len(test_generator))
+print('Testing end')
 
-for label in labels:
-    color = label.color
-    trainId = label.trainId
-    col_img[pred_img == trainId] = color
-
-# plt.imshow(col_img)
-# plt.axis('off')
-# plt.show()
-
-# Show images
-rgb = img[..., ::-1]
-rgb = cv2.resize(rgb, (col_img.shape[1], col_img.shape[0]))
-
-# plt.figure(figsize=(9, 14))
-plt.figure()
-
-plt.subplot(1, 2, 1)
-plt.imshow(rgb)
-plt.axis('off')
-
-plt.subplot(1, 2, 2)
-plt.imshow(col_img)
-plt.axis('off')
-
-plt.show()
-
-# Save images
-cv2.imwrite('outputs/test.png', img)
-plt.imsave('outputs/rgb.png', rgb)
-plt.imsave('outputs/color.png', col_img)
+print(evaluate)

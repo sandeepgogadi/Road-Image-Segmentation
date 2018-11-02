@@ -90,12 +90,8 @@ else:
     session_master = ''
 
 # Optimizer
-# optimizer = tf.train.AdamOptimizer(args.lr)
 optimizer = tf.keras.optimizers.Adam(args.lr)
-# optimizer = tf.keras.optimizers.SGD(lr=args.lr, momentum=0.9)
 print('Optimizer selected')
-# Use tf.keras.optimizers.Adam when keras for tpu comes out of
-# experimental.
 
 # Model compile
 model.compile(optimizer, 'categorical_crossentropy',
