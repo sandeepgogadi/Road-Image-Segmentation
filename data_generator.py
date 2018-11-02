@@ -60,7 +60,7 @@ class DataGenerator(Sequence):
         self.custom_data = args.custom_data
 
         # Preallocate memory
-        if self.net == 'ICNET' and mode != 'test':
+        if self.net == 'ICNET' and self.mode != 'test':
             self.X = np.zeros(
                 (self.batch_size, self.resize_shape[1], self.resize_shape[0], 3), dtype='float32')
             self.Y1 = np.zeros(
@@ -100,7 +100,7 @@ class DataGenerator(Sequence):
                                       255 for i in np.arange(0, 256)]).astype(np.uint8)
                     image = cv2.LUT(image, table)
 
-            if self.net == 'ICNET' and mode != 'test':
+            if self.net == 'ICNET' and self.mode != 'test':
                 self.X[n] = image
                 self.Y1[n] = to_categorical(cv2.resize(label, (label.shape[1]//4, label.shape[0]//4)),
                                             self.n_classes).reshape((label.shape[0]//4, label.shape[1]//4, -1))
@@ -113,7 +113,7 @@ class DataGenerator(Sequence):
                 self.Y[n] = to_categorical(cv2.resize(label, (label.shape[1], label.shape[0])),
                                            self.n_classes).reshape((label.shape[0], label.shape[1], -1))
 
-        if self.net == 'ICNET' and mode != 'test':
+        if self.net == 'ICNET' and self.mode != 'test':
             return self.X, [self.Y1, self.Y2, self.Y3]
         else:
             return self.X, self.Y
