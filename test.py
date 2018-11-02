@@ -42,13 +42,6 @@ if args.net == 'ICNET':
     num_classes = 20
     weights_path = 'weights/weights_{}.h5'.format(args.net)
 
-# Loss weights
-if args.net == 'ICNET':
-    loss_weights = [1.0, 0.4, 0.16]
-else:
-    loss_weights = None
-print('loaded loss weights')
-
 # Data Generators
 test_generator = DataGenerator(num_classes, width, height, args, mode='test')
 print('Alloted generators')
@@ -73,8 +66,7 @@ optimizer = tf.keras.optimizers.Adam(0.0001)
 print('Optimizer selected')
 
 # Model compile
-model.compile(optimizer, 'categorical_crossentropy',
-              loss_weights=loss_weights, metrics=['categorical_accuracy'])
+model.compile(optimizer, 'categorical_crossentropy', metrics=['categorical_accuracy'])
 print('Model compiled')
 
 # Testing
