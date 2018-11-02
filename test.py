@@ -61,9 +61,9 @@ if args.use_tpu:
 else:
     session_master = ''
 
-# Optimizer
-optimizer = tf.keras.optimizers.Adam(args.lr)
-print('Optimizer selected')
+# # Optimizer
+# optimizer = tf.keras.optimizers.Adam(args.lr)
+# print('Optimizer selected')
 
 # Model compile
 model.compile(optimizer, 'categorical_crossentropy',
