@@ -57,9 +57,7 @@ class DataGenerator(Sequence):
         self.brightness = brightness
         self.net = args.net
         self.batch_size = args.batch_size
-
-        if mode != 'test':
-            self.custom_data = args.custom_data
+        self.custom_data = args.custom_data
 
         # Preallocate memory
         if self.net == 'ICNET':

@@ -18,6 +18,8 @@ parser.add_argument('--net', type=str, help='From a selection of ICNET.')
 parser.add_argument('--use_tpu', type=bool, default=False,
                     help='bool for TPU use.')
 parser.add_argument('--batch_size', type=int, default=64, help='Specify batch size')
+parser.add_argument('--custom_data', type=bool, default=False,
+                    help='Specify if you want to train with custom data')
 # parser.add_argument('', type=int, default=, help='')
 
 args = parser.parse_args()
