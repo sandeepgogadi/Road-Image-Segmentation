@@ -76,4 +76,4 @@ print('Testing begin')
 evaluate = model.evaluate_generator(test_generator, steps=len(test_generator))
 print('Testing end')
 
-print(evaluate)
+print('Loss:{}, Accuracy:{}'.format(evaluate[0], evaluate[1]))
