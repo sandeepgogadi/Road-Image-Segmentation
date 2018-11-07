@@ -15,7 +15,7 @@ Refer [notebooks] folder for implementation. TPU support available.
 ## Predictions
 ![alt text](https://github.com/sandeepgogadi/Road-Image-Segmentation/blob/master/Sample_outputs.png "Predictions")
 
-## Dataset
+## Datasets
 [BDD](http://bdd-data.berkeley.edu/)
 
 [1] Huazhe Xu, Yang Gao, Fisher Yu, and Trevor Darrell. "End-to-end learning of driving models from large-scale video datasets." CVPR 2017
